@@ -1,0 +1,125 @@
+// div {
+//   border: 1px solid black;
+// }
+// section {
+//   border: 1px solid green;
+// }
+// .container {
+//   border: 1px solid red;
+// }
+// main {
+//   border: 1px solid blue;
+// }
+// aside {
+//   border: 1px solid orange;
+// }
+// footer {
+//   border: 2px solid black;
+// }
+
+/* Layout Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.container {
+  display: flex;
+  height: 100vh;
+  margin: auto;
+  max-width: 1200px;
+  padding: 0px;
+}
+
+/* Columns
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.one-column {
+  section {
+    padding: 0 20px;
+    width: 100%;
+  }
+}
+
+.two-column {
+  display: flex;
+
+  section {
+    padding: 0 20px;
+    width: 66%;
+  }
+  aside {
+    padding: 0 20px 0 0;
+    width: 34%;
+  }
+}
+
+@media (max-width: 600px) {
+  .two-column {
+    flex-direction: column;
+    section {
+      width: 100%;
+    }
+    aside {
+      padding: 0 20px;
+      width: 100%;
+    }
+  }
+}
+
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.btn {
+  background: var(--blue-070);
+  border-radius: 5px;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.ghost-button {
+  background: none;
+  border: 2px solid var(--blue-060);
+  color: var(--blue-070);
+  font-weight: bold;
+  &:hover {
+    background: var(--blue-020);
+  }
+}
+
+.btn-secondary {
+  background: var(--black-090);
+  border-radius: 5px;
+  border: 0;
+  color: #fff !important;
+  cursor: pointer;
+  font-size: 13px;
+  font: inherit;
+  margin: 0 20px;
+  padding: 5px 15px;
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.link-as-button {
+  background: var(--blue-070);
+  border-radius: 5px;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 20px;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.85;
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+/* Box Shadow
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.bs {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(104, 76, 76, 0.3);
+}

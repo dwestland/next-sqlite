@@ -1,0 +1,37 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map(name: "email_verified")
+  image         String?
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+
+  blogs    Blogs[]
+
+  @@map(name: "users")
+}
+
+model Blogs {
+  id    Int    @id @default(autoincrement())
+  title String @unique
+  body  String
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int  @map(name: "author_id")
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  @@map(name: "blogs")
+}

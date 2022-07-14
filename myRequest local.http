@@ -1,0 +1,101 @@
+# Uses VS Code Rest Client extension
+@baseurl = http://localhost:3000/api
+
+### Get all blogs
+GET {{baseurl}}/blogs HTTP/1.1
+
+### Get all blogs with isLikeByUser
+POST {{baseurl}}/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+  "data":
+    {
+      "user": 4
+    }
+}
+
+### Add like
+POST {{baseurl}}/like/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "data":
+    {
+      "userId": 4,
+      "blogId": 3
+    }
+}
+
+### Search blogs
+POST {{baseurl}}/blog/search HTTP/1.1
+Content-Type: application/json
+
+{
+  "search":
+    {
+      "term": "apollo"
+    }
+}
+
+
+### Get blog by id
+GET {{baseurl}}/blog/7 HTTP/1.1
+
+
+### Post blog
+GET {{baseurl}}/blog HTTP/1.1
+Content-Type: application/json
+
+
+### Add Blog
+POST {{baseurl}}/blog/add HTTP/1.1
+Content-Type: application/json
+# Authorization: Bearer 0a498b747c0bd3c63821d515575a53000b1d9cc3b012b1957dfb55701b525d08%7C14b56f932990b2416175479ce7f76affb89c0a69a49fdeb04211fa01ea94321d
+
+{
+  "data":
+    {
+      "title": "xxxx",
+      "body": "xx oo",
+      "authorId": 2
+    }
+}
+
+
+### Update blog
+PUT {{baseurl}}/blog/update HTTP/1.1
+Content-Type: application/json
+
+{
+  "data":
+    {
+      "title": "xxxxz",
+      "body": "xx oo",
+      "id": 51
+    }
+}
+
+
+### Check if title exists
+POST {{baseurl}}/blog/titleCount HTTP/1.1
+Content-Type: application/json
+
+{
+  "data":
+    {
+      "title": "xxxx"
+    }
+}
+
+
+### Delete blog
+DELETE {{baseurl}}/blog/delete HTTP/1.1
+Content-Type: application/json
+
+{
+  "data":
+    {
+      "id": 29
+    }
+}
