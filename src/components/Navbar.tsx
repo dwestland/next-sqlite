@@ -16,6 +16,11 @@ export default function Navbar() {
             <a>Two Column</a>
           </Link>
         </li>
+        <li className={styles.li}>
+          <Link href="/blogs">
+            <a>Blogs</a>
+          </Link>
+        </li>
       </ul>
     </nav>
   )

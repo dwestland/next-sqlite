@@ -25,15 +25,25 @@
   margin: auto;
   max-width: 1200px;
   padding: 0px;
+
+  // flex-wrap: wrap;
+  // justify-content: space-around;
+
+  // & > div {
+  //   // flex-shrink: 0;
+  //   flex-grow: 1;
+  // }
+}
+
+.container > div {
+  flex: 1 0 100%;
 }
 
 /* Columns
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.one-column {
-  section {
-    padding: 0 20px;
-    width: 100%;
-  }
+section {
+  padding: 0 20px;
+  width: 100%;
 }
 
 .two-column {

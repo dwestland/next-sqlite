@@ -6,7 +6,7 @@ import Layout from '@/components/Layout'
 const HomePage = () => {
   return (
     <Layout title="Document" description="Document description">
-      <main className="one-column">
+      <main>
         <section>
           <h1>Welcome to App</h1>
           <h3>Section</h3>
