@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import Link from 'next/link'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
+import AddModal from '@/components/AddModal'
 
 interface Blogs {
   blogs: {}[]
@@ -21,6 +22,7 @@ interface Article {
 }
 
 const BlogsPage = () => {
+  const [showAddModal, setShowAddModal] = useState<boolean>(false)
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const fetchAllBlogs = async () => {
@@ -51,20 +53,34 @@ const BlogsPage = () => {
     return allBlogs
   }
 
+  const openAddModal = () => {
+    setShowAddModal(true)
+  }
+
+  const closeAddModal = () => {
+    setShowAddModal(true)
+  }
+
   return (
     <Layout title="Document" description="Document description">
       <main>
         <section>
           <h1>Blogs</h1>
           <Link href="/blogs/add">
-            <a className="btn">Add Blogs</a>
+            <a className="btn">Test Link as Button</a>
           </Link>
+
+          <button type="button" className="btn" onClick={openAddModal}>
+            <a>Add Blogs</a>
+          </button>
+
           <div>
             {data.blogs.length === 0 && <h3>No Blogs</h3>}
             {result()}
           </div>
         </section>
       </main>
+      {showAddModal && <AddModal closeAddModal={closeAddModal} />}
     </Layout>
   )
 }
