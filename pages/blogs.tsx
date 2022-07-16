@@ -4,8 +4,8 @@ import Link from 'next/link'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 
-interface Articles {
-  articles: {}[]
+interface Blogs {
+  blogs: {}[]
   userLikingOwnError: () => void
 }
 
@@ -30,7 +30,7 @@ const BlogsPage = () => {
     return res.json()
   }
 
-  const { data, error, isLoading, isError } = useQuery<Articles, Error>(
+  const { data, error, isLoading, isError } = useQuery<Blogs, Error>(
     'allBlogs',
     fetchAllBlogs
   )
@@ -44,8 +44,8 @@ const BlogsPage = () => {
   }
 
   const result = () => {
-    const allBlogs = data.articles.map((article: Article) => (
-      <BlogItem key={article.title} article={article} />
+    const allBlogs = data.blogs.map((blog: Article) => (
+      <BlogItem key={blog.title} blog={blog} />
     ))
 
     return allBlogs
@@ -57,10 +57,10 @@ const BlogsPage = () => {
         <section>
           <h1>Blogs</h1>
           <Link href="/blogs/add">
-            <a className="btn">Add Blog</a>
+            <a className="btn">Add Blogs</a>
           </Link>
           <div>
-            {data.articles.length === 0 && <h3>No Articles</h3>}
+            {data.blogs.length === 0 && <h3>No Blogs</h3>}
             {result()}
           </div>
         </section>

@@ -4,13 +4,9 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // if (req.method !== 'GET') {
-  //   return res.status(405).json({ message: 'Method not allowed' })
-  // }
-
   if (req.method === 'GET') {
     try {
-      const articles = await prisma.blogs.findMany({
+      const blogs = await prisma.blogs.findMany({
         orderBy: {
           updatedAt: 'desc',
         },
@@ -27,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           },
         },
       })
-      res.status(200).json({ articles })
+      res.status(200).json({ blogs })
     } catch (err) {
       console.log(err)
       res.status(403).json({ err: 'Error occurred.' })
@@ -95,5 +91,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
-  return null
+  return res.status(405).json({ message: 'Method not allowed' })
 }

@@ -9,7 +9,7 @@ import DeleteModal from '@/components/DeleteModal'
 import EditModal from '@/components/EditModal'
 
 interface Blog {
-  article: {
+  blog: {
     id: number
     body: string
     title: string
@@ -21,10 +21,10 @@ interface Blog {
   }
 }
 
-const BlogItem: FC<Blog> = ({ article }): JSX.Element => {
+const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
   const [showEditModal, setShowEditModal] = useState<boolean>(false)
-  const { id, title, body, author } = article
+  const { id, title, body, author } = blog
   const bestName = author.name ?? author.email
 
   const openDeleteModal = () => {
