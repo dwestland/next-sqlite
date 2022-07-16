@@ -5,8 +5,8 @@ import Tooltip from 'rc-tooltip'
 import ShowMoreText from 'react-show-more-text'
 import styles from '@/styles/BlogItem.module.css'
 import 'rc-tooltip/assets/bootstrap.css'
-// import DeleteModal from '@/components/DeleteModal'
-// import EditModal from '@/components/EditModal'
+import DeleteModal from '@/components/DeleteModal'
+import EditModal from '@/components/EditModal'
 
 interface Blog {
   article: {

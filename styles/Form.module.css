@@ -1,0 +1,23 @@
+.form .section {
+  margin-top: 10px;
+}
+
+.form input[type='text'] {
+  height: 30px;
+  padding: 5px;
+  width: 100%;
+}
+
+.form textarea {
+  font-family: inherit;
+  height: 150px;
+  padding: 5px;
+  width: 100%;
+}
+
+.form input[type='submit'] {
+  display: block;
+  height: 40px;
+  margin: 20px 0 30px;
+  width: 100%;
+}

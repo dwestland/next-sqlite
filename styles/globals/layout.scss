@@ -36,7 +36,7 @@
 }
 
 .container > div {
-  flex: 1 0 100%;
+  // flex: 1 0 100%;
 }
 
 /* Columns
@@ -75,7 +75,7 @@ section {
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .btn {
-  background: var(--blue-070);
+  background: var(--blue-060);
   border-radius: 5px;
   border: 0;
   color: #fff;
@@ -83,7 +83,9 @@ section {
   display: inline-block;
   padding: 10px 20px;
   &:hover {
-    opacity: 0.85;
+    background: var(--blue-070);
+    color: #fff;
+    text-decoration: none;
   }
 }
 
@@ -94,6 +96,8 @@ section {
   font-weight: bold;
   &:hover {
     background: var(--blue-020);
+    color: #fff;
+    text-decoration: none;
   }
 }
 
@@ -109,6 +113,7 @@ section {
   padding: 5px 15px;
   &:hover {
     opacity: 0.85;
+    text-decoration: none;
   }
 }
 

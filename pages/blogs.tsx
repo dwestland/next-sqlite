@@ -2,7 +2,6 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import Link from 'next/link'
 import BlogItem from '@/components/BlogItem'
-import Image from 'next/image'
 import Layout from '@/components/Layout'
 
 interface Articles {
@@ -57,7 +56,6 @@ const BlogsPage = () => {
       <main>
         <section>
           <h1>Blogs</h1>
-          <h3>Section</h3>
           <Link href="/blogs/add">
             <a className="btn">Add Blog</a>
           </Link>
