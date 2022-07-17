@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
-import Link from 'next/link'
+// import Link from 'next/link'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 import AddModal from '@/components/AddModal'
@@ -37,18 +37,23 @@ const BlogsPage = () => {
     fetchAllBlogs
   )
 
-  if (isLoading) {
-    return <span>Loading...</span>
-  }
+  const pageResult = () => {
+    if (isLoading) {
+      return <h4>Loading...</h4>
+    }
 
-  if (isError) {
-    return <span>Error: {error?.message}</span>
-  }
+    if (isError) {
+      console.log('Error loading blogs: ', error?.message)
+      return <h4>Error loading blogs</h4>
+    }
 
-  const result = () => {
     const allBlogs = data.blogs.map((blog: Article) => (
       <BlogItem key={blog.title} blog={blog} />
     ))
+
+    if (allBlogs.length === 0) {
+      return <h2>No Blogs</h2>
+    }
 
     return allBlogs
   }
@@ -58,7 +63,7 @@ const BlogsPage = () => {
   }
 
   const closeAddModal = () => {
-    setShowAddModal(true)
+    setShowAddModal(false)
   }
 
   return (
@@ -66,18 +71,10 @@ const BlogsPage = () => {
       <main>
         <section>
           <h1>Blogs</h1>
-          <Link href="/blogs/add">
-            <a className="btn">Test Link as Button</a>
-          </Link>
-
           <button type="button" className="btn" onClick={openAddModal}>
             <a>Add Blogs</a>
           </button>
-
-          <div>
-            {data.blogs.length === 0 && <h3>No Blogs</h3>}
-            {result()}
-          </div>
+          {pageResult()}
         </section>
       </main>
       {showAddModal && <AddModal closeAddModal={closeAddModal} />}

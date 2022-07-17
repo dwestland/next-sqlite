@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import Link from 'next/link'
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
-import Tooltip from 'rc-tooltip'
+// import Tooltip from 'rc-tooltip'
 import ShowMoreText from 'react-show-more-text'
 import styles from '@/styles/BlogItem.module.css'
 import 'rc-tooltip/assets/bootstrap.css'
@@ -45,44 +45,44 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
           {/*  TODO - Remove ID */}
           {id}
           {/* Edit Button */}
-          <Tooltip
+          {/* <Tooltip
             placement="top"
             trigger={['hover']}
             overlay={<span>Edit</span>}
+          > */}
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={openEditModal}
           >
-            <button
-              type="button"
-              className={styles.iconButton}
-              onClick={openEditModal}
-            >
-              <a className={styles.icon}>
-                <FaPencilAlt />
-              </a>
-            </button>
-          </Tooltip>
+            <a className={styles.icon}>
+              <FaPencilAlt />
+            </a>
+          </button>
+          {/* </Tooltip> */}
           &nbsp;&nbsp;
           {/* Delete Button */}
-          <Tooltip
+          {/* <Tooltip
             placement="top"
             trigger={['hover']}
             overlay={<span>Delete</span>}
+          > */}
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={openDeleteModal}
           >
-            <button
-              type="button"
-              className={styles.iconButton}
-              onClick={openDeleteModal}
-            >
-              <a className={styles.icon}>
-                <FaTrashAlt />
-              </a>
-            </button>
-          </Tooltip>
+            <a className={styles.icon}>
+              <FaTrashAlt />
+            </a>
+          </button>
+          {/* </Tooltip> */}
           &nbsp;&nbsp;
         </div>
       </div>
       <div className={`${styles.row} ${styles.small}`}>
         <span>By {bestName}</span>
-        <Link href={`/detail/${id}`}>
+        <Link href={`/blog/${id}`}>
           <a>Blog detail</a>
         </Link>
       </div>
