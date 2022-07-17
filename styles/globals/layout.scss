@@ -74,62 +74,89 @@ section {
 
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
 .btn {
-  background: var(--blue-060);
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  background: var(--blue-070);
   border-radius: 5px;
   border: 0;
-  color: #fff;
   cursor: pointer;
-  display: inline-block;
   padding: 10px 20px;
+  text-decoration: none;
   &:hover {
-    background: var(--blue-070);
+    background: var(--blue-080);
+  }
+}
+
+.btn-secondary {
+  a {
     color: #fff;
-    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  background: var(--black-080);
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  &:hover {
+    background: var(--black-100);
   }
 }
 
 .ghost-button {
+  a {
+    color: var(--blue-070);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  background: none;
+  border-radius: 5px;
+  border: 1px solid var(--blue-080);
+
+  cursor: pointer;
+  padding: 8px 18px;
+  text-decoration: none;
+  &:hover {
+    background: var(--blue-010);
+  }
+
   background: none;
   border: 2px solid var(--blue-060);
   color: var(--blue-070);
   font-weight: bold;
   &:hover {
-    background: var(--blue-020);
+    background: var(--blue-010);
     color: #fff;
     text-decoration: none;
   }
 }
 
-.btn-secondary {
-  background: var(--black-090);
-  border-radius: 5px;
-  border: 0;
-  color: #fff !important;
-  cursor: pointer;
-  font-size: 13px;
-  font: inherit;
-  margin: 0 20px;
-  padding: 5px 15px;
-  &:hover {
-    opacity: 0.85;
-    text-decoration: none;
-  }
-}
-
 .link-as-button {
+  a {
+    &:hover {
+      background: var(--blue-080);
+    }
+  }
   background: var(--blue-070);
   border-radius: 5px;
   border: 0;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  padding: 5px 20px;
-  text-decoration: none;
+  padding: 7px 17px;
   &:hover {
-    opacity: 0.85;
-    text-decoration: none;
+    background: var(--blue-080);
     color: #fff;
+    text-decoration: none;
   }
 }
 
