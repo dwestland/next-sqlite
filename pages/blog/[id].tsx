@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 
 interface Blog {
-  article: {
+  blog: {
     id: number
     body: string
     title: string
@@ -18,6 +18,7 @@ interface Blog {
 const BlogDetailPage = () => {
   const router = useRouter()
   const { id } = router.query
+  console.log('%c router.query ', 'background: red; color: white', router.query)
 
   const fetchArticle = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/blog/${+id}`)
@@ -29,27 +30,45 @@ const BlogDetailPage = () => {
     fetchArticle
   )
 
-  console.log('%c data ', 'background: red; color: white', data)
-  console.log(
-    '%c data.article ',
-    'background: red; color: white',
-    data.article.title
-  )
+  // const { body } = data.blog
 
-  console.log('%c error ', 'background: red; color: white', error)
-  console.log('%c isLoading ', 'background: red; color: white', isLoading)
-  console.log('%c isError ', 'background: red; color: white', isError)
+  const pageResult = () => {
+    if (isLoading) {
+      return <h4>Loading...</h4>
+    }
+
+    if (isError) {
+      console.log('Error loading blog detail: ', error?.message)
+      return <h4>Error loading blog detail</h4>
+    }
+
+    // if (blogDetail.length === 0) {
+    //   return <h2>No Blogs</h2>
+    // }
+
+    return (
+      <>
+        <h2>{data.blog.title}</h2>
+        <p>
+          Author: <i>{data.blog.author.name}</i>
+        </p>
+        <p>{data.blog.body}</p>
+      </>
+    )
+  }
+
+  // console.log(
+  //   '%c data.blog.title ',
+  //   'background: red; color: white',
+  //   data.blog.title
+  // )
 
   return (
     <Layout title="Document" description="Document description">
       <main>
         <section>
           <h1>Blog Detail</h1>
-          <h2>{data.article.title}</h2>
-          <p>
-            Author: <i>{data.article.author.name}</i>
-          </p>
-          <p>{data.article.body}</p>
+          {pageResult()}
         </section>
       </main>
     </Layout>
