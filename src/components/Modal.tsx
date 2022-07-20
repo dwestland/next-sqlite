@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom'
 import { FaTimes } from 'react-icons/fa'
 import styles from '@/styles/Modal.module.css'
 
-export default function Modal({ show, onClose, children, title }) {
+export default function Modal({ show, onClose, children, modalTitle }) {
   const [isBrowser, setIsBrowser] = useState(false)
 
+  // const modalTitle = 'Edit blog'
+
+  console.log('%c modalTitle ', 'background: red; color: white', modalTitle)
   useEffect(() => setIsBrowser(true))
+
+  console.log('%c onClose ', 'background: red; color: white', onClose)
 
   const handleClose = (e) => {
     e.preventDefault()
@@ -26,8 +31,10 @@ export default function Modal({ show, onClose, children, title }) {
               <FaTimes />
             </a>
           </button>
+          <h2>{modalTitle}</h2>
+          {/* <h2>{modalTitle && { modalTitle }}</h2> */}
+          {/* <h2>Edit blog</h2> */}
         </div>
-        {title && <div>{title}</div>}
         <div className={styles.body}>{children}</div>
       </div>
     </div>

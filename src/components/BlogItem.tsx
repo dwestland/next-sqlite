@@ -5,6 +5,7 @@ import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
 import ShowMoreText from 'react-show-more-text'
 import styles from '@/styles/BlogItem.module.css'
 import 'rc-tooltip/assets/bootstrap.css'
+import Modal from '@/components/Modal'
 import DeleteModal from '@/components/DeleteModal'
 import EditModal from '@/components/EditModal'
 
@@ -34,6 +35,10 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const openEditModal = () => {
     setShowEditModal(true)
   }
+
+  // const closeEditModal = () => {
+  //   setShowEditModal(false)
+  // }
 
   return (
     <div className={styles.blogItem}>
@@ -105,12 +110,27 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
         />
       )}
       {showEditModal && (
-        <EditModal
-          id={id}
-          title={title}
-          body={body}
-          setShowEditModal={setShowEditModal}
-        />
+        <Modal
+          modalTitle="Edit blog"
+          show={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          // closeEditModal={closeEditModal}
+        >
+          <EditModal
+            id={id}
+            title={title}
+            body={body}
+            onClose={() => setShowEditModal(false)}
+            // closeEditModal={closeEditModal}
+          />
+        </Modal>
+
+        // <EditModal
+        //   id={id}
+        //   title={title}
+        //   body={body}
+        //   setShowEditModal={setShowEditModal}
+        // />
       )}
     </div>
   )

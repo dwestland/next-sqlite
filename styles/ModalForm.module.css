@@ -1,0 +1,41 @@
+.form .section {
+  margin-top: 10px;
+}
+
+.form label {
+  font-size: larger;
+}
+
+.form input[type='text'] {
+  border-radius: 5px;
+  border: 1px solid var(--black-070);
+  height: 30px;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+.form textarea {
+  border-radius: 5px;
+  border: 1px solid var(--black-070);
+  font-family: inherit;
+  height: 150px;
+  padding: 10px 10px;
+  resize: none;
+  width: 100%;
+}
+
+.form input[type='submit'] {
+  border-radius: 5px;
+  border: 1px solid var(--black-070);
+  display: block;
+  height: 40px;
+  margin: 20px 0 30px;
+  width: 100%;
+}
+
+.buttonContainer {
+  /* background: pink; */
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
