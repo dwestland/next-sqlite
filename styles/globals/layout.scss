@@ -26,6 +26,8 @@
   max-width: 1200px;
   padding: 0px;
 
+  // TODO: FIX STICKY FOOTER
+
   // flex-wrap: wrap;
   // justify-content: space-around;
 
@@ -103,6 +105,7 @@ section {
   background: var(--blue-070);
   border-radius: 5px;
   border: 0;
+  color: #fff;
   cursor: pointer;
   padding: 10px 20px;
   text-decoration: none;
@@ -130,30 +133,24 @@ section {
 }
 
 .ghost-button {
+  background: none;
+  border-radius: 5px;
+  border: 2px solid var(--blue-060);
+  color: var(--blue-070);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 18px;
+  text-decoration: none;
   a {
     color: var(--blue-070);
     &:hover {
       text-decoration: none;
     }
   }
-  background: none;
-  border-radius: 5px;
-  border: 1px solid var(--blue-080);
 
-  cursor: pointer;
-  padding: 8px 18px;
-  text-decoration: none;
   &:hover {
     background: var(--blue-010);
-  }
-
-  background: none;
-  border: 2px solid var(--blue-060);
-  color: var(--blue-070);
-  font-weight: bold;
-  &:hover {
-    background: var(--blue-010);
-    color: #fff;
+    // color: #fff;
     text-decoration: none;
   }
 }

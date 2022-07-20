@@ -72,7 +72,7 @@ const BlogsPage = () => {
         <section>
           <h1>Blogs</h1>
           <button type="button" className="btn" onClick={openAddModal}>
-            <a>Add Blogs</a>
+            <a>Add Blog</a>
           </button>
           {pageResult()}
         </section>

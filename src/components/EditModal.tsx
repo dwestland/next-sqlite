@@ -52,55 +52,47 @@ const DeleteModal: FC<ModalProps> = ({
   }
 
   return (
-    <div>
-      {/* <Modal show="true" title={null} onClose={() => setShowEditModal(false)}> */}
-      <div className={styles.deleteModal}>
-        {/* <h2>Edit blog</h2> */}
-
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div>
-            <div className={styles.section}>
-              <label htmlFor="title">
-                Title
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={values.title}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-            <div className={styles.section}>
-              <label htmlFor="body">
-                Body
-                <textarea
-                  name="body"
-                  id="body"
-                  value={values.body}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
+    <div className={styles.deleteModal}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div>
+          <div className={styles.section}>
+            <label htmlFor="title">
+              Title
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={values.title}
+                onChange={handleInputChange}
+              />
+            </label>
           </div>
-
-          <div className={styles.buttonContainer}>
-            <button type="submit" className="btn">
-              Update
-            </button>
-            <button
-              className="ghost-button"
-              type="button"
-              // onClick={() => setShowEditModal(false)}
-              onClick={() => onClose()}
-            >
-              Cancel
-            </button>
+          <div className={styles.section}>
+            <label htmlFor="body">
+              Body
+              <textarea
+                name="body"
+                id="body"
+                value={values.body}
+                onChange={handleInputChange}
+              />
+            </label>
           </div>
-          {/* <input type="submit" value="Update Blog" className="btn" /> */}
-        </form>
-      </div>
-      {/* </Modal> */}
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <button type="submit" className="btn">
+            Update
+          </button>
+          <button
+            className="ghost-button"
+            type="button"
+            onClick={() => onClose()}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   )
 }

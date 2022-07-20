@@ -114,7 +114,6 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
           modalTitle="Edit blog"
           show={showEditModal}
           onClose={() => setShowEditModal(false)}
-          // closeEditModal={closeEditModal}
         >
           <EditModal
             id={id}
@@ -124,13 +123,6 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
             // closeEditModal={closeEditModal}
           />
         </Modal>
-
-        // <EditModal
-        //   id={id}
-        //   title={title}
-        //   body={body}
-        //   setShowEditModal={setShowEditModal}
-        // />
       )}
     </div>
   )
