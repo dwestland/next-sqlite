@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Modal from '@/components/Modal'
+import styles from '@/styles/ModalForm.module.css'
 
 interface ModalProps {
   id: number
@@ -11,6 +11,7 @@ const DeleteModal: FC<ModalProps> = ({
   id,
   title,
   setShowDeleteModal,
+  onClose,
 }): JSX.Element => {
   const url = `${process.env.NEXT_PUBLIC_API}/blog/delete`
 
@@ -32,24 +33,22 @@ const DeleteModal: FC<ModalProps> = ({
 
   return (
     <div>
-      <Modal show="true" title={null} onClose={() => setShowDeleteModal(false)}>
-        <div className="cancelModal">
-          <h2>Are you sure you want to delete</h2>
-          <h3>&quot;{title}&quot;&nbsp;&nbsp;?</h3>
-          <div className="buttonContainer">
-            <button className="btn" type="button" onClick={handleDelete}>
-              Delete
-            </button>
-            <button
-              className="btn ghostButton"
-              type="button"
-              onClick={() => setShowDeleteModal(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      </Modal>
+      <br />
+      <p style={{ fontSize: '20px' }}>Are you sure you want to delete:</p>
+      <p style={{ fontSize: '24px' }}>&quot;{title}&quot;?</p>
+      <br />
+      <div className={styles.buttonContainer}>
+        <button className="btn" type="button" onClick={handleDelete}>
+          Delete
+        </button>
+        <button
+          className="ghost-button"
+          type="button"
+          onClick={() => onClose()}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   )
 }

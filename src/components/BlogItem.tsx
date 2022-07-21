@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
 // import Tooltip from 'rc-tooltip'
@@ -28,6 +28,18 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const { id, title, body, author } = blog
   const bestName = author.name ?? author.email
 
+  // Lock scroll on Edit Modal
+  useEffect(() => {
+    const documentBody = document.querySelector('body')
+    documentBody.style.overflow = showEditModal ? 'hidden' : 'auto'
+  }, [showEditModal])
+
+  // Lock scroll on Delete Modal
+  useEffect(() => {
+    const documentBody = document.querySelector('body')
+    documentBody.style.overflow = showDeleteModal ? 'hidden' : 'auto'
+  }, [showDeleteModal])
+
   const openDeleteModal = () => {
     setShowDeleteModal(true)
   }
@@ -35,10 +47,6 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const openEditModal = () => {
     setShowEditModal(true)
   }
-
-  // const closeEditModal = () => {
-  //   setShowEditModal(false)
-  // }
 
   return (
     <div className={styles.blogItem}>
@@ -103,11 +111,19 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
         </ShowMoreText>
       </div>
       {showDeleteModal && (
-        <DeleteModal
-          id={id}
-          setShowDeleteModal={setShowDeleteModal}
-          title={title}
-        />
+        <Modal
+          modalTitle="Delete blog"
+          show={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+        >
+          <DeleteModal
+            id={id}
+            title={title}
+            // body={body}
+            onClose={() => setShowDeleteModal(false)}
+            // closeEditModal={closeEditModal}
+          />
+        </Modal>
       )}
       {showEditModal && (
         <Modal

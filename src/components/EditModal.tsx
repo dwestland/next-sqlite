@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from 'react'
-// import Modal from '@/components/Modal'
 import styles from '@/styles/ModalForm.module.css'
 
 interface ModalProps {
@@ -52,7 +51,7 @@ const DeleteModal: FC<ModalProps> = ({
   }
 
   return (
-    <div className={styles.deleteModal}>
+    <div>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <div className={styles.section}>

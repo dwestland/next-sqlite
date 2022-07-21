@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
-import Modal from '@/components/Modal'
-import styles from '@/styles/Form.module.css'
+import React, { FC, useState } from 'react'
+import styles from '@/styles/ModalForm.module.css'
 
-const AddModal = () => {
+interface ModalProps {
+  onClose: Function
+}
+
+const AddModal: FC<ModalProps> = ({ onClose }) => {
   const [values, setValues] = useState({
     title: '',
     body: '',
   })
-  const addBlogUrl = `${process.env.NEXT_PUBLIC_API}/blog/add`
+  const addBlogUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -44,6 +47,8 @@ const AddModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // TODO: add validation
+
     // Validation
     const hasEmptyFields = Object.values(values).some(
       (element) => element === ''
@@ -62,42 +67,45 @@ const AddModal = () => {
 
   return (
     <div>
-      <Modal
-        show="true"
-        // closeAddModal={closeAddModal}
-        // onClose={() => setShowAddModal(false)}
-      >
-        <h1>Add Blog</h1>
-
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div>
-            <div className={styles.section}>
-              <label htmlFor="title">
-                Title
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  value={values.title}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-            <div className={styles.section}>
-              <label htmlFor="body">
-                Body
-                <textarea
-                  name="body"
-                  id="body"
-                  value={values.body}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div>
+          <div className={styles.section}>
+            <label htmlFor="title">
+              Title
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={values.title}
+                onChange={handleInputChange}
+              />
+            </label>
           </div>
-          <input type="submit" value="Add Blog" className="btn" />
-        </form>
-      </Modal>
+          <div className={styles.section}>
+            <label htmlFor="body">
+              Body
+              <textarea
+                name="body"
+                id="body"
+                value={values.body}
+                onChange={handleInputChange}
+              />
+            </label>
+          </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <button type="submit" className="btn" value="Add Blog">
+            Update
+          </button>
+          <button
+            className="ghost-button"
+            type="button"
+            onClick={() => onClose()}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
   )
 }

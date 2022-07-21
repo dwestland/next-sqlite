@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
-// import Link from 'next/link'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
+import Modal from '@/components/Modal'
 import AddModal from '@/components/AddModal'
 
 interface Blogs {
@@ -24,6 +24,12 @@ interface Article {
 const BlogsPage = () => {
   const [showAddModal, setShowAddModal] = useState<boolean>(false)
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
+
+  // Lock scroll on modal
+  useEffect(() => {
+    const body = document.querySelector('body')
+    body.style.overflow = showAddModal ? 'hidden' : 'auto'
+  }, [showAddModal])
 
   const fetchAllBlogs = async () => {
     const res = await fetch(url, {
@@ -62,10 +68,6 @@ const BlogsPage = () => {
     setShowAddModal(true)
   }
 
-  const closeAddModal = () => {
-    setShowAddModal(false)
-  }
-
   return (
     <Layout title="Document" description="Document description">
       <main>
@@ -77,7 +79,18 @@ const BlogsPage = () => {
           {pageResult()}
         </section>
       </main>
-      {showAddModal && <AddModal closeAddModal={closeAddModal} />}
+      {showAddModal && (
+        <Modal
+          modalTitle="Add blog"
+          show={showAddModal}
+          onClose={() => setShowAddModal(false)}
+        >
+          <AddModal
+            onClose={() => setShowAddModal(false)}
+            // closeEditModal={closeEditModal}
+          />
+        </Modal>
+      )}
     </Layout>
   )
 }
