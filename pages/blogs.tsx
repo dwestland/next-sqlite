@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, QueryCache } from 'react-query'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import AddModal from '@/components/AddModal'
 
-interface Blogs {
+interface Blog {
   blogs: {}[]
-  userLikingOwnError: () => void
+  title
 }
 
-interface Article {
-  id: number
-  body: string
-  title: string
-  author: {
+interface Blogs {
+  blogs: {
     id: number
-    name: string
-    email: string
+    body: string
+    title: string
+    author: {
+      id: number
+      name: string
+      email: string
+    }
   }
 }
 
@@ -25,7 +27,7 @@ const BlogsPage = () => {
   const [showAddModal, setShowAddModal] = useState<boolean>(false)
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
-  // Lock scroll on modal
+  // Lock scroll when modal visible
   useEffect(() => {
     const body = document.querySelector('body')
     body.style.overflow = showAddModal ? 'hidden' : 'auto'
@@ -53,7 +55,7 @@ const BlogsPage = () => {
       return <h4>Error loading blogs</h4>
     }
 
-    const allBlogs = data.blogs.map((blog: Article) => (
+    const allBlogs = data.blogs.map((blog: Blog) => (
       <BlogItem key={blog.title} blog={blog} />
     ))
 
@@ -87,6 +89,7 @@ const BlogsPage = () => {
         >
           <AddModal
             onClose={() => setShowAddModal(false)}
+            show={showAddModal}
             // closeEditModal={closeEditModal}
           />
         </Modal>

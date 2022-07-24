@@ -7,6 +7,9 @@ GET {{baseurl}}/blogs HTTP/1.1
 ### Get blog by ID
 GET {{baseurl}}/blog/7 HTTP/1.1
 
+### Get all users
+GET {{baseurl}}/users HTTP/1.1
+
 ### Add Blog
 POST {{baseurl}}/blogs HTTP/1.1
 Content-Type: application/json
@@ -14,7 +17,7 @@ Content-Type: application/json
 {
   "data":
     {
-      "title": "My New Blog 5",
+      "title": "My New Blog b",
       "body": "This is the body of the blog post",
       "authorId": 2
     }
@@ -27,9 +30,9 @@ Content-Type: application/json
 {
   "data":
     {
-      "title": "this blog has been edited",
+      "title": "this blog has been editedx",
       "body": "xx oo",
-      "id": 21
+      "id": 27
     }
 }
 
@@ -40,7 +43,7 @@ Content-Type: application/json
 {
   "data":
     {
-      "id": 23
+      "id": 31
     }
 }
 

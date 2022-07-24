@@ -8,7 +8,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const blogs = await prisma.blogs.findMany({
         orderBy: {
-          updatedAt: 'desc',
+          id: 'desc',
+          //   title: 'desc',
+          //   updatedAt: { sort: 'asc', nulls: 'last' },
         },
         select: {
           id: true,

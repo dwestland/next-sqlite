@@ -28,13 +28,13 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const { id, title, body, author } = blog
   const bestName = author.name ?? author.email
 
-  // Lock scroll on Edit Modal
+  // Lock scroll when Edit Modal is visible
   useEffect(() => {
     const documentBody = document.querySelector('body')
     documentBody.style.overflow = showEditModal ? 'hidden' : 'auto'
   }, [showEditModal])
 
-  // Lock scroll on Delete Modal
+  // Lock scroll when Delete Modal is visible
   useEffect(() => {
     const documentBody = document.querySelector('body')
     documentBody.style.overflow = showDeleteModal ? 'hidden' : 'auto'

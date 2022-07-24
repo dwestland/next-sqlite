@@ -180,3 +180,12 @@ section {
 .bs {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(104, 76, 76, 0.3);
 }
+
+/* Dark Mode
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--black-090);
+    color: var(--black-010);
+  }
+}
