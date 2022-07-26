@@ -95,7 +95,7 @@ section {
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-.btn {
+.primary-button {
   a {
     color: #fff;
     &:hover {
@@ -114,7 +114,7 @@ section {
   }
 }
 
-.btn-secondary {
+.secondary-button {
   a {
     color: #fff;
     &:hover {
@@ -142,7 +142,7 @@ section {
   padding: 8px 18px;
   text-decoration: none;
   a {
-    color: var(--blue-070);
+    color: var(--blue-060);
     &:hover {
       text-decoration: none;
     }

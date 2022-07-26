@@ -4,16 +4,11 @@ import styles from '@/styles/ModalForm.module.css'
 interface ModalProps {
   id: number
   title: string
-  setShowDeleteModal: any
+  onClose: Function
 }
 
-const DeleteModal: FC<ModalProps> = ({
-  id,
-  title,
-  setShowDeleteModal,
-  onClose,
-}): JSX.Element => {
-  const url = `${process.env.NEXT_PUBLIC_API}/blog/delete`
+const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
+  const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const handleDelete = () => {
     fetch(url, {
@@ -28,7 +23,7 @@ const DeleteModal: FC<ModalProps> = ({
       }),
     })
 
-    setShowDeleteModal(false)
+    onClose()
   }
 
   return (
@@ -38,7 +33,7 @@ const DeleteModal: FC<ModalProps> = ({
       <p style={{ fontSize: '24px' }}>&quot;{title}&quot;?</p>
       <br />
       <div className={styles.buttonContainer}>
-        <button className="btn" type="button" onClick={handleDelete}>
+        <button className="primary-button" type="button" onClick={handleDelete}>
           Delete
         </button>
         <button

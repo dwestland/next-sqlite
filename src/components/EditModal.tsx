@@ -80,7 +80,7 @@ const DeleteModal: FC<ModalProps> = ({
         </div>
 
         <div className={styles.buttonContainer}>
-          <button type="submit" className="btn">
+          <button type="submit" className="primary-button">
             Update
           </button>
           <button

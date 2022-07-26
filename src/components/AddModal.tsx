@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { useQuery, useMutation } from 'react-query'
+import { useQuery, useMutation, QueryClient } from 'react-query'
 import styles from '@/styles/ModalForm.module.css'
 
 interface ModalProps {
@@ -22,10 +22,7 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
     authorId: '',
     body: '',
   })
-  const [users, setUsers] = useState<Users>()
   const [errorMessage, setErrorMessage] = useState('')
-
-  // const [blogType, setBlogType] = useState('')
 
   const usersUrl = `${process.env.NEXT_PUBLIC_API}/users`
   const blogsUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
@@ -43,23 +40,22 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
     return res.json()
   }
 
-  const { data, error, isLoading, isError } = useQuery<Users, Error>(
+  const { data, error, isError } = useQuery<Users, Error>(
     'allUsers',
     fetchUsers
   )
 
-  // console.log('%c data ', 'background: red; color: white', data)
-  // console.log('%c error ', 'background: red; color: white', error)
-  // console.log('%c isLoading ', 'background: red; color: white', isLoading)
-  // console.log('%c isError ', 'background: red; color: white', isError)
+  // TODO: Add error handling
+
+  if (isError) {
+    setErrorMessage(error.message)
+  }
 
   const userArray = data?.users?.map((user: User) => (
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
   ))
-
-  console.log('%c userArray ', 'background: red; color: white', userArray)
 
   // const userArray = () => {
   //   if (isLoading) {
@@ -87,7 +83,63 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
   // }
 
   // //////////////////////////////////////////////////////////////////////////////
-  const handlePostBlog = () => {
+
+  // const handlePostBlog = () => {
+  //   const authorId = parseInt(values.authorId, 10)
+  //   fetch(blogsUrl, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       data: {
+  //         title: values.title,
+  //         body: values.body,
+  //         authorId,
+  //       },
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((resData) => {
+  //       return resData
+  //     })
+  //     .catch((err) => {
+  //       console.log("%c I'm in catch ", 'background: red; color: white')
+  //       setErrorMessage(err)
+  //       console.warn(err)
+  //       // return null
+  //     })
+
+  //   setValues({ title: '', body: '', authorId: '' })
+  //   onClose()
+
+  //   return null
+  // }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+
+  //   // Validation
+  //   const hasEmptyFields = Object.values(values).some(
+  //     (element) => element === ''
+  //   )
+
+  //   if (hasEmptyFields) {
+  //     setErrorMessage('Please fill in all fields')
+  //     return null
+  //   }
+
+  //   setErrorMessage('')
+  //   handlePostBlog()
+
+  //   return null
+  // }
+
+  // //////////////////////////////////////////////////////////////////////////////
+
+  const queryClient = new QueryClient()
+
+  const mutation = useMutation(() => {
     const authorId = parseInt(values.authorId, 10)
     fetch(blogsUrl, {
       method: 'POST',
@@ -112,33 +164,16 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
         console.warn(err)
         // return null
       })
-
     setValues({ title: '', body: '', authorId: '' })
     onClose()
-
     return null
-  }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    // Validation
-    const hasEmptyFields = Object.values(values).some(
-      (element) => element === ''
-    )
-
-    if (hasEmptyFields) {
-      setErrorMessage('Please fill in all fields')
-      return null
-    }
-
-    setErrorMessage('')
-    handlePostBlog()
-
-    return null
+    await mutation.mutate()
+    await queryClient.invalidateQueries(['allBlogs'])
   }
-
-  // //////////////////////////////////////////////////////////////////////////////
 
   return (
     <div>
@@ -189,7 +224,7 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button type="submit" className="btn" value="Add Blog">
+          <button type="submit" className="primary-button" value="Add Blog">
             Add Blog
           </button>
           <button
@@ -206,3 +241,40 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
 }
 
 export default AddModal
+
+// This works:
+
+// const mutation = useMutation(() => {
+//   const authorId = parseInt(values.authorId, 10)
+//   fetch(blogsUrl, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       data: {
+//         title: values.title,
+//         body: values.body,
+//         authorId,
+//       },
+//     }),
+//   })
+//     .then((res) => res.json())
+//     .then((resData) => {
+//       return resData
+//     })
+//     .catch((err) => {
+//       console.log("%c I'm in catch ", 'background: red; color: white')
+//       setErrorMessage(err)
+//       console.warn(err)
+//       // return null
+//     })
+//   setValues({ title: '', body: '', authorId: '' })
+//   onClose()
+//   return null
+// })
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault()
+//   mutation.mutate()
+// }

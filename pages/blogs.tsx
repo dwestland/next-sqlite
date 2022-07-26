@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery, QueryCache } from 'react-query'
+import { useQuery } from 'react-query'
 import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
@@ -75,7 +75,11 @@ const BlogsPage = () => {
       <main>
         <section>
           <h1>Blogs</h1>
-          <button type="button" className="btn" onClick={openAddModal}>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={openAddModal}
+          >
             <a>Add Blog</a>
           </button>
           {pageResult()}
