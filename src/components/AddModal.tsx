@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import { useQuery, useMutation, QueryClient } from 'react-query'
+import QueryKeys from '@/react-query/constants'
 import styles from '@/styles/ModalForm.module.css'
 
 interface ModalProps {
@@ -41,7 +42,7 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
   }
 
   const { data, error, isError } = useQuery<Users, Error>(
-    'allUsers',
+    QueryKeys.allUsers,
     fetchUsers
   )
 
