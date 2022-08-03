@@ -1,7 +1,7 @@
-// @ts-nocheck
+// x@ts-nocheck
 import React, { FC } from 'react'
 import { useMutation, QueryClient } from 'react-query'
-import QueryKeys from '@/react-query/constants'
+import queryKeys from '@/react-query/constants'
 import styles from '@/styles/ModalForm.module.css'
 
 interface ModalProps {
@@ -13,35 +13,34 @@ interface ModalProps {
 const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
-  const mutation = useMutation(
-    () => {
-      fetch(url, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+  const deleteBlog = async () => {
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          id,
         },
-        body: JSON.stringify({
-          data: {
-            id,
-          },
-        }),
-      })
+      }),
+    })
 
-      // onClose()
+    // onClose()
+  }
+
+  const mutation = useMutation(deleteBlog, {
+    onSuccess: () => {
+      // QueryClient.invalidateQueries(queryKeys.allBlogs)
+      onClose()
     },
-    {
-      onSuccess: () => {
-        QueryClient.invalidateQueries(QueryKeys.allBlogs)
-        onClose()
-      },
-      onError: (err) => {
-        console.log(err)
-      },
-      onSettled: () => {
-        console.log('Im settled')
-      },
-    }
-  )
+    onError: (err) => {
+      console.log(err)
+    },
+    onSettled: () => {
+      console.log('Im settled')
+    },
+  })
 
   // const handleDelete = () => {
   //   deleteBlog()

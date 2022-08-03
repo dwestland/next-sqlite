@@ -4,7 +4,7 @@ import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import AddModal from '@/components/AddModal'
-import QueryKeys from '@/react-query/constants'
+import queryKeys from '@/react-query/constants'
 
 interface Blog {
   blogs: {}[]
@@ -42,7 +42,7 @@ const BlogsPage = () => {
   }
 
   const { data, error, isLoading, isError } = useQuery<Blogs, Error>(
-    QueryKeys.allBlogs,
+    queryKeys.allBlogs,
     fetchAllBlogs
   )
 
