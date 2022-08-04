@@ -1,6 +1,6 @@
-// x@ts-nocheck
+// @ts-nocheck
 import React, { FC } from 'react'
-import { useMutation, QueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
 import styles from '@/styles/ModalForm.module.css'
 
@@ -11,6 +11,7 @@ interface ModalProps {
 }
 
 const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
+  const queryClient = useQueryClient()
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const deleteBlog = async () => {
@@ -25,13 +26,11 @@ const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
         },
       }),
     })
-
-    // onClose()
   }
 
   const mutation = useMutation(deleteBlog, {
     onSuccess: () => {
-      // QueryClient.invalidateQueries(queryKeys.allBlogs)
+      queryClient.invalidateQueries(queryKeys.allBlogs)
       onClose()
     },
     onError: (err) => {
@@ -41,10 +40,6 @@ const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
       console.log('Im settled')
     },
   })
-
-  // const handleDelete = () => {
-  //   deleteBlog()
-  // }
 
   return (
     <div>
