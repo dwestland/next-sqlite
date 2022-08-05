@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { useQuery, useMutation, QueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
 import styles from '@/styles/ModalForm.module.css'
 
@@ -18,15 +18,16 @@ interface Users {
 }
 
 const AddModal: FC<ModalProps> = ({ onClose }) => {
+  const queryClient = useQueryClient()
+  const usersUrl = `${process.env.NEXT_PUBLIC_API}/users`
+  const blogsUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
+
+  const [errorMessage, setErrorMessage] = useState('')
   const [values, setValues] = useState({
     title: '',
     authorId: '',
     body: '',
   })
-  const [errorMessage, setErrorMessage] = useState('')
-
-  const usersUrl = `${process.env.NEXT_PUBLIC_API}/users`
-  const blogsUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -40,6 +41,43 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
 
     return res.json()
   }
+
+  const addBlog = async () => {
+    const authorId = parseInt(values.authorId, 10)
+    fetch(blogsUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          title: values.title,
+          body: values.body,
+          authorId,
+        },
+      }),
+    })
+  }
+
+  const handleSubmit = () => {
+    console.log('%c handleSubmit ', 'background: red; color: white')
+
+    mutation.mutate()
+  }
+
+  const mutation = useMutation(addBlog, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKeys.allBlogs)
+      setValues({ title: '', body: '', authorId: '' })
+      onClose()
+    },
+    onError: (err) => {
+      console.log(err)
+    },
+    onSettled: () => {
+      console.log('Im settled')
+    },
+  })
 
   const { data, error, isError } = useQuery<Users, Error>(
     queryKeys.allUsers,
@@ -57,124 +95,6 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
       {user.name}
     </option>
   ))
-
-  // const userArray = () => {
-  //   if (isLoading) {
-  //     return <h4>Loading...</h4>
-  //   }
-
-  //   if (isError) {
-  //     console.log('Error loading blogs: ', error?.message)
-  //     return <h4>Error loading blogs</h4>
-  //   }
-
-  //   const allUsers = data.users.map((user: User) => (
-  //     // <option key={user.id} value={user.id}>
-  //     <p>{user.name}</p>
-  //     // </option>
-  //   ))
-
-  //   return null
-
-  //   // if (allUsers.length === 0) {
-  //   //   return <h2>No Blogs</h2>
-  //   // }
-
-  //   return allUsers
-  // }
-
-  // //////////////////////////////////////////////////////////////////////////////
-
-  // const handlePostBlog = () => {
-  //   const authorId = parseInt(values.authorId, 10)
-  //   fetch(blogsUrl, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       data: {
-  //         title: values.title,
-  //         body: values.body,
-  //         authorId,
-  //       },
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((resData) => {
-  //       return resData
-  //     })
-  //     .catch((err) => {
-  //       console.log("%c I'm in catch ", 'background: red; color: white')
-  //       setErrorMessage(err)
-  //       console.warn(err)
-  //       // return null
-  //     })
-
-  //   setValues({ title: '', body: '', authorId: '' })
-  //   onClose()
-
-  //   return null
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-
-  //   // Validation
-  //   const hasEmptyFields = Object.values(values).some(
-  //     (element) => element === ''
-  //   )
-
-  //   if (hasEmptyFields) {
-  //     setErrorMessage('Please fill in all fields')
-  //     return null
-  //   }
-
-  //   setErrorMessage('')
-  //   handlePostBlog()
-
-  //   return null
-  // }
-
-  // //////////////////////////////////////////////////////////////////////////////
-
-  const queryClient = new QueryClient()
-
-  const mutation = useMutation(() => {
-    const authorId = parseInt(values.authorId, 10)
-    fetch(blogsUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: {
-          title: values.title,
-          body: values.body,
-          authorId,
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        return resData
-      })
-      .catch((err) => {
-        console.log("%c I'm in catch ", 'background: red; color: white')
-        setErrorMessage(err)
-        console.warn(err)
-        // return null
-      })
-    setValues({ title: '', body: '', authorId: '' })
-    onClose()
-    return null
-  })
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await mutation.mutate()
-    await queryClient.invalidateQueries(['allBlogs'])
-  }
 
   return (
     <div>
@@ -242,40 +162,3 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
 }
 
 export default AddModal
-
-// This works:
-
-// const mutation = useMutation(() => {
-//   const authorId = parseInt(values.authorId, 10)
-//   fetch(blogsUrl, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       data: {
-//         title: values.title,
-//         body: values.body,
-//         authorId,
-//       },
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((resData) => {
-//       return resData
-//     })
-//     .catch((err) => {
-//       console.log("%c I'm in catch ", 'background: red; color: white')
-//       setErrorMessage(err)
-//       console.warn(err)
-//       // return null
-//     })
-//   setValues({ title: '', body: '', authorId: '' })
-//   onClose()
-//   return null
-// })
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault()
-//   mutation.mutate()
-// }
