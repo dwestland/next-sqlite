@@ -1,34 +1,43 @@
 import React, { FC, useState, useEffect } from 'react'
 import styles from '@/styles/ModalForm.module.css'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
+import queryKeys from '@/react-query/constants'
 
 interface ModalProps {
   id: number
   title: string
   body: string
   setShowEditModal: any
+  onClose: Function
 }
 
-const DeleteModal: FC<ModalProps> = ({
+const EditModal: FC<ModalProps> = ({
   id,
   title,
   body,
   setShowEditModal,
   onClose,
 }): JSX.Element => {
+  const queryClient = useQueryClient()
+  const url = `${process.env.NEXT_PUBLIC_API}/blogs`
+
   const [values, setValues] = useState({
     title: '',
     body: '',
   })
-  const url = `${process.env.NEXT_PUBLIC_API}/blog/update`
 
   useEffect(() => {
     setValues({ title, body })
   }, [])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setValues({ ...values, [name]: value })
+  }
 
-    fetch(url, {
+  const editBlog = async () => {
+    // const authorId = parseInt(values.authorId, 10)
+    await fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -41,13 +50,30 @@ const DeleteModal: FC<ModalProps> = ({
         },
       }),
     })
-
-    setShowEditModal(false)
   }
+  // Add validation
+  const mutation = useMutation(editBlog, {
+    onSuccess: () => {
+      // setValues({ title: '', body: '', authorId: '' })
+      // setErrorMessage('')
+      onClose()
+    },
+    onError: (err) => {
+      console.log(err)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(queryKeys.allBlogs)
+    },
+  })
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setValues({ ...values, [name]: value })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    fetch(url, {})
+
+    mutation.mutate()
+
+    return null
   }
 
   return (
@@ -96,4 +122,4 @@ const DeleteModal: FC<ModalProps> = ({
   )
 }
 
-export default DeleteModal
+export default EditModal
