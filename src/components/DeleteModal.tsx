@@ -15,7 +15,7 @@ const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const deleteBlog = async () => {
-    fetch(url, {
+    await fetch(url, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -30,14 +30,13 @@ const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
 
   const mutation = useMutation(deleteBlog, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.allBlogs)
       onClose()
     },
     onError: (err) => {
       console.log(err)
     },
     onSettled: () => {
-      console.log('Im settled')
+      queryClient.invalidateQueries(queryKeys.allBlogs)
     },
   })
 

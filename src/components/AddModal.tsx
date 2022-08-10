@@ -44,7 +44,7 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
 
   const addBlog = async () => {
     const authorId = parseInt(values.authorId, 10)
-    fetch(blogsUrl, {
+    await fetch(blogsUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,32 +59,42 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
     })
   }
 
-  const handleSubmit = () => {
-    console.log('%c handleSubmit ', 'background: red; color: white')
-
-    mutation.mutate()
-  }
-
   const mutation = useMutation(addBlog, {
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.allBlogs)
       setValues({ title: '', body: '', authorId: '' })
+      setErrorMessage('')
       onClose()
     },
     onError: (err) => {
       console.log(err)
     },
     onSettled: () => {
-      console.log('Im settled')
+      queryClient.invalidateQueries(queryKeys.allBlogs)
     },
   })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // Validation
+    const hasEmptyFields = Object.values(values).some(
+      (element) => element === ''
+    )
+
+    if (hasEmptyFields) {
+      setErrorMessage('Please fill in all fields')
+      return null
+    }
+
+    mutation.mutate()
+
+    return null
+  }
 
   const { data, error, isError } = useQuery<Users, Error>(
     queryKeys.allUsers,
     fetchUsers
   )
-
-  // TODO: Add error handling
 
   if (isError) {
     setErrorMessage(error.message)
