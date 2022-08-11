@@ -21,6 +21,7 @@ const EditModal: FC<ModalProps> = ({
   const queryClient = useQueryClient()
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
+  const [errorMessage, setErrorMessage] = useState('')
   const [values, setValues] = useState({
     title: '',
     body: '',
@@ -51,7 +52,7 @@ const EditModal: FC<ModalProps> = ({
       }),
     })
   }
-  // Add validation
+
   const mutation = useMutation(editBlog, {
     onSuccess: () => {
       // setValues({ title: '', body: '', authorId: '' })
@@ -69,7 +70,17 @@ const EditModal: FC<ModalProps> = ({
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    fetch(url, {})
+    // fetch(url, {})
+
+    // Validation
+    const hasEmptyFields = Object.values(values).some(
+      (element) => element === ''
+    )
+
+    if (hasEmptyFields) {
+      setErrorMessage('Please fill in all fields')
+      return null
+    }
 
     mutation.mutate()
 
@@ -78,6 +89,7 @@ const EditModal: FC<ModalProps> = ({
 
   return (
     <div>
+      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
           <div className={styles.section}>
@@ -104,7 +116,6 @@ const EditModal: FC<ModalProps> = ({
             </label>
           </div>
         </div>
-
         <div className={styles.buttonContainer}>
           <button type="submit" className="primary-button">
             Update
