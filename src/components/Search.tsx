@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import router from 'next/router'
-import styles from '@/styles/Search.module.css'
+import styles from '@/styles/Search.module.scss'
 
 const Search = () => {
   const [term, setTerm] = useState('')

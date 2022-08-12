@@ -53,7 +53,7 @@ const searchResults = () => {
       <p key={article.id}>
         <strong>{article.title}</strong>
         &nbsp;-&nbsp;
-        <Link href={`/detail/${article.id}`}>
+        <Link href={`/blog/${article.id}`}>
           <a>Blog detail</a>
         </Link>
       </p>

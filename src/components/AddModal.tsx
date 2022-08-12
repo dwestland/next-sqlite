@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
-import styles from '@/styles/ModalForm.module.css'
+import styles from '@/styles/ModalForm.module.scss'
 
 interface ModalProps {
   onClose: Function
@@ -13,7 +13,6 @@ interface User {
 }
 
 interface Users {
-  // blogs: {}[]
   users?: {}[]
 }
 

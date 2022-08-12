@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import styles from '@/styles/ModalForm.module.css'
+import styles from '@/styles/ModalForm.module.scss'
 import { useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
 
