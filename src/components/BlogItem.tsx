@@ -55,14 +55,7 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
           <strong>{title}</strong>
         </span>
         <div className={styles.icons}>
-          {/*  TODO - Remove ID */}
-          {id}
-          {/* Edit Button */}
-          {/* <Tooltip
-            placement="top"
-            trigger={['hover']}
-            overlay={<span>Edit</span>}
-          > */}
+          Blog ID {id} &nbsp;&nbsp;
           <button
             type="button"
             className={styles.iconButton}

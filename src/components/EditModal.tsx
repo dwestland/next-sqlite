@@ -1,13 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
 import styles from '@/styles/ModalForm.module.css'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
 
 interface ModalProps {
   id: number
   title: string
   body: string
-  setShowEditModal: any
   onClose: Function
 }
 
@@ -15,7 +14,6 @@ const EditModal: FC<ModalProps> = ({
   id,
   title,
   body,
-  setShowEditModal,
   onClose,
 }): JSX.Element => {
   const queryClient = useQueryClient()
@@ -37,7 +35,6 @@ const EditModal: FC<ModalProps> = ({
   }
 
   const editBlog = async () => {
-    // const authorId = parseInt(values.authorId, 10)
     await fetch(url, {
       method: 'PUT',
       headers: {
@@ -55,8 +52,6 @@ const EditModal: FC<ModalProps> = ({
 
   const mutation = useMutation(editBlog, {
     onSuccess: () => {
-      // setValues({ title: '', body: '', authorId: '' })
-      // setErrorMessage('')
       onClose()
     },
     onError: (err) => {
@@ -69,19 +64,13 @@ const EditModal: FC<ModalProps> = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    // fetch(url, {})
-
-    // Validation
     const hasEmptyFields = Object.values(values).some(
       (element) => element === ''
     )
-
     if (hasEmptyFields) {
       setErrorMessage('Please fill in all fields')
       return null
     }
-
     mutation.mutate()
 
     return null
