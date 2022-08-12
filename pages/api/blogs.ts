@@ -9,8 +9,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const blogs = await prisma.blogs.findMany({
         orderBy: {
           id: 'desc',
-          //   title: 'desc',
-          //   updatedAt: { sort: 'asc', nulls: 'last' },
         },
         select: {
           id: true,
@@ -75,9 +73,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'DELETE') {
     const { id } = req.body.data
-
-    console.log('%c req.body ', 'background: darkblue; color: white', req.body)
-    console.log('%c id ', 'background: darkblue; color: white', id)
 
     try {
       await prisma.blogs.delete({

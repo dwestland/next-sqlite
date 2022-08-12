@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   )
 
   try {
-    const articles = await prisma.blogs.findMany({
+    const blogs = await prisma.blogs.findMany({
       where: {
         // body: { contains: req.body.search.term, mode: 'insensitive', },
         body: { contains: req.body.search.term },
@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     })
 
-    res.status(200).json({ articles })
+    res.status(200).json({ blogs })
   } catch (err) {
     console.log(err)
     res.status(403).json({ err: 'Error occurred.' })

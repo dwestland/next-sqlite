@@ -20,15 +20,20 @@ const BlogDetailPage = () => {
   const { id } = router.query
   console.log('%c router.query ', 'background: red; color: white', router.query)
 
-  const fetchArticle = async () => {
+  const fetchBlog = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API}/blog/${+id}`)
     return res.json()
   }
 
   const { data, error, isLoading, isError } = useQuery<Blog, Error>(
-    'article',
-    fetchArticle
+    'blog',
+    fetchBlog
   )
+
+  console.log('%c data ', 'background: red; color: white', data)
+  console.log('%c error ', 'background: red; color: white', error)
+  console.log('%c isLoading ', 'background: red; color: white', isLoading)
+  console.log('%c isError ', 'background: red; color: white', isError)
 
   // const { body } = data.blog
 
@@ -45,6 +50,7 @@ const BlogDetailPage = () => {
     // if (blogDetail.length === 0) {
     //   return <h2>No Blogs</h2>
     // }
+    // return 'boom'
 
     return (
       <>

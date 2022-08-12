@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Layout from '@/components/Layout'
 
 interface Search {
-  articles: []
+  blogs: []
 }
 
 interface SearchResults {
@@ -49,11 +49,11 @@ const searchResults = () => {
     }
 
     console.log('%c i am results ', 'background: red; color: white')
-    const results = data.articles.map((article: SearchResults) => (
-      <p key={article.id}>
-        <strong>{article.title}</strong>
+    const results = data.blogs.map((blog: SearchResults) => (
+      <p key={blog.id}>
+        <strong>{blog.title}</strong>
         &nbsp;-&nbsp;
-        <Link href={`/blog/${article.id}`}>
+        <Link href={`/blog/${blog.id}`}>
           <a>Blog detail</a>
         </Link>
       </p>
