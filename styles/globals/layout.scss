@@ -1,3 +1,6 @@
+// body {
+//   border: 1px solid red;
+// }
 // div {
 //   border: 1px solid black;
 // }
@@ -19,51 +22,28 @@
 
 /* Layout Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.container {
-  display: flex;
+
+body {
   height: 100vh;
   margin: auto;
   max-width: 1200px;
-  padding: 0px;
-
-  // TODO: FIX STICKY FOOTER
-
-  // flex-wrap: wrap;
-  // justify-content: space-around;
-
-  // flex-direction: column;
-
-  // & > div {
-  //   // flex-shrink: 0;
-  //   flex-grow: 1;
-  // }
-  flex-direction: column; // disables sticky footer, but expands full width
 }
 
-.container > div {
-  // flex: 1 0 100%;
-  // flex-grow: 1;
-
-  // display: flex;
-  // flex-direction: column;
+.container {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-  display: grid;
-  grid-template-rows: 1fr auto;
-}
-
-.footer {
-  grid-row-start: 2;
-  grid-row-end: 3;
+  flex: 1;
 }
 
 /* Columns
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 section {
   padding: 0 20px;
-  width: 100%;
+  // width: 100%;
 }
 
 .two-column {
