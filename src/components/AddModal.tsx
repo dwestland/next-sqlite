@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
 import styles from '@/styles/ModalForm.module.scss'
@@ -18,6 +18,7 @@ interface Users {
 
 const AddModal: FC<ModalProps> = ({ onClose }) => {
   const queryClient = useQueryClient()
+  const inputReference = useRef(null)
   const usersUrl = `${process.env.NEXT_PUBLIC_API}/users`
   const blogsUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
 
@@ -27,6 +28,10 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
     authorId: '',
     body: '',
   })
+
+  useEffect(() => {
+    inputReference.current.focus()
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -119,6 +124,7 @@ const AddModal: FC<ModalProps> = ({ onClose }) => {
                 name="title"
                 value={values.title}
                 onChange={handleInputChange}
+                ref={inputReference}
               />
             </label>
           </div>

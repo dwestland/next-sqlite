@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import styles from '@/styles/ModalForm.module.scss'
 import { useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/react-query/constants'
@@ -17,6 +17,7 @@ const EditModal: FC<ModalProps> = ({
   onClose,
 }): JSX.Element => {
   const queryClient = useQueryClient()
+  const inputReference = useRef(null)
   const url = `${process.env.NEXT_PUBLIC_API}/blogs`
 
   const [errorMessage, setErrorMessage] = useState('')
@@ -24,6 +25,10 @@ const EditModal: FC<ModalProps> = ({
     title: '',
     body: '',
   })
+
+  useEffect(() => {
+    inputReference.current.focus()
+  }, [])
 
   useEffect(() => {
     setValues({ title, body })
@@ -90,6 +95,7 @@ const EditModal: FC<ModalProps> = ({
                 name="title"
                 value={values.title}
                 onChange={handleInputChange}
+                ref={inputReference}
               />
             </label>
           </div>
