@@ -17,6 +17,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/constants/*": ["src/constants/*"],
+      "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"]
     },
     "incremental": true

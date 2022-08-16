@@ -1,27 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 // import { PrismaClient } from '.prisma/client'
-import { PrismaClient } from '@prisma/client'
+import prisma from '@/lib/prisma'
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' })
   }
 
-  console.log(
-    '%c req.body.search.term ',
-    'background: red; color: white',
-    req.body.search.term
-  )
-
   try {
     const blogs = await prisma.blogs.findMany({
       where: {
-        // body: { contains: req.body.search.term, mode: 'insensitive', },
         body: { contains: req.body.search.term },
-
-        // title: { contains: req.body.search.term, mode: 'insensitive' },
       },
       select: {
         id: true,
