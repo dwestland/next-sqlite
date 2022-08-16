@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
-// import Tooltip from 'rc-tooltip'
+import Tooltip from 'rc-tooltip'
 import ShowMoreText from 'react-show-more-text'
 import styles from '@/styles/BlogItem.module.scss'
 import 'rc-tooltip/assets/bootstrap.css'
@@ -56,33 +56,37 @@ const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
         </span>
         <div className={styles.icons}>
           Blog ID {id} &nbsp;&nbsp;
-          <button
-            type="button"
-            className={styles.iconButton}
-            onClick={openEditModal}
+          <Tooltip
+            placement="top"
+            trigger={['hover']}
+            overlay={<span>Edit</span>}
           >
-            <a className={styles.icon}>
-              <FaPencilAlt />
-            </a>
-          </button>
-          {/* </Tooltip> */}
+            <button
+              type="button"
+              className={styles.iconButton}
+              onClick={openEditModal}
+            >
+              <a className={styles.icon}>
+                <FaPencilAlt />
+              </a>
+            </button>
+          </Tooltip>
           &nbsp;&nbsp;
-          {/* Delete Button */}
-          {/* <Tooltip
+          <Tooltip
             placement="top"
             trigger={['hover']}
             overlay={<span>Delete</span>}
-          > */}
-          <button
-            type="button"
-            className={styles.iconButton}
-            onClick={openDeleteModal}
           >
-            <a className={styles.icon}>
-              <FaTrashAlt />
-            </a>
-          </button>
-          {/* </Tooltip> */}
+            <button
+              type="button"
+              className={styles.iconButton}
+              onClick={openDeleteModal}
+            >
+              <a className={styles.icon}>
+                <FaTrashAlt />
+              </a>
+            </button>
+          </Tooltip>
           &nbsp;&nbsp;
         </div>
       </div>
