@@ -19,7 +19,6 @@ interface Blog {
 const BlogDetailPage = () => {
   const router = useRouter()
   const { id } = router.query
-  console.log('%c router.query ', 'background: red; color: white', router.query)
 
   const fetchBlog = async () => {
     const res = await fetch(`${apiRootUrl.NEXT_PUBLIC_API}/blog/${+id}`)

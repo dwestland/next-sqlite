@@ -53,7 +53,6 @@ const searchResults = () => {
       return <span>Error: {error?.message}</span>
     }
 
-    console.log('%c i am results ', 'background: red; color: white')
     const results = data.blogs.map((blog: SearchResults) => (
       <p key={blog.id}>
         <strong>{blog.title}</strong>
