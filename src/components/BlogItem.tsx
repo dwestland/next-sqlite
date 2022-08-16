@@ -1,15 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa'
-import Tooltip from 'rc-tooltip'
+// import Tooltip from 'rc-tooltip'
 import ShowMoreText from 'react-show-more-text'
-import styles from '@/styles/BlogItem.module.css'
+import styles from '@/styles/BlogItem.module.scss'
 import 'rc-tooltip/assets/bootstrap.css'
-// import DeleteModal from '@/components/DeleteModal'
-// import EditModal from '@/components/EditModal'
+import Modal from '@/components/Modal'
+import DeleteModal from '@/components/DeleteModal'
+import EditModal from '@/components/EditModal'
 
 interface Blog {
-  article: {
+  blog: {
     id: number
     body: string
     title: string
@@ -21,11 +22,23 @@ interface Blog {
   }
 }
 
-const BlogItem: FC<Blog> = ({ article }): JSX.Element => {
+const BlogItem: FC<Blog> = ({ blog }): JSX.Element => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
   const [showEditModal, setShowEditModal] = useState<boolean>(false)
-  const { id, title, body, author } = article
+  const { id, title, body, author } = blog
   const bestName = author.name ?? author.email
+
+  // Lock scroll when Edit Modal is visible
+  useEffect(() => {
+    const documentBody = document.querySelector('body')
+    documentBody.style.overflow = showEditModal ? 'hidden' : 'auto'
+  }, [showEditModal])
+
+  // Lock scroll when Delete Modal is visible
+  useEffect(() => {
+    const documentBody = document.querySelector('body')
+    documentBody.style.overflow = showDeleteModal ? 'hidden' : 'auto'
+  }, [showDeleteModal])
 
   const openDeleteModal = () => {
     setShowDeleteModal(true)
@@ -42,47 +55,40 @@ const BlogItem: FC<Blog> = ({ article }): JSX.Element => {
           <strong>{title}</strong>
         </span>
         <div className={styles.icons}>
-          {/*  TODO - Remove ID */}
-          {id}
-          {/* Edit Button */}
-          <Tooltip
-            placement="top"
-            trigger={['hover']}
-            overlay={<span>Edit</span>}
+          Blog ID {id} &nbsp;&nbsp;
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={openEditModal}
           >
-            <button
-              type="button"
-              className={styles.iconButton}
-              onClick={openEditModal}
-            >
-              <a className={styles.icon}>
-                <FaPencilAlt />
-              </a>
-            </button>
-          </Tooltip>
+            <a className={styles.icon}>
+              <FaPencilAlt />
+            </a>
+          </button>
+          {/* </Tooltip> */}
           &nbsp;&nbsp;
           {/* Delete Button */}
-          <Tooltip
+          {/* <Tooltip
             placement="top"
             trigger={['hover']}
             overlay={<span>Delete</span>}
+          > */}
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={openDeleteModal}
           >
-            <button
-              type="button"
-              className={styles.iconButton}
-              onClick={openDeleteModal}
-            >
-              <a className={styles.icon}>
-                <FaTrashAlt />
-              </a>
-            </button>
-          </Tooltip>
+            <a className={styles.icon}>
+              <FaTrashAlt />
+            </a>
+          </button>
+          {/* </Tooltip> */}
           &nbsp;&nbsp;
         </div>
       </div>
       <div className={`${styles.row} ${styles.small}`}>
         <span>By {bestName}</span>
-        <Link href={`/detail/${id}`}>
+        <Link href={`/blog/${id}`}>
           <a>Blog detail</a>
         </Link>
       </div>
@@ -98,19 +104,34 @@ const BlogItem: FC<Blog> = ({ article }): JSX.Element => {
         </ShowMoreText>
       </div>
       {showDeleteModal && (
-        <DeleteModal
-          id={id}
-          setShowDeleteModal={setShowDeleteModal}
-          title={title}
-        />
+        <Modal
+          modalTitle="Delete blog"
+          show={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+        >
+          <DeleteModal
+            id={id}
+            title={title}
+            // body={body}
+            onClose={() => setShowDeleteModal(false)}
+            // closeEditModal={closeEditModal}
+          />
+        </Modal>
       )}
       {showEditModal && (
-        <EditModal
-          id={id}
-          title={title}
-          body={body}
-          setShowEditModal={setShowEditModal}
-        />
+        <Modal
+          modalTitle="Edit blog"
+          show={showEditModal}
+          onClose={() => setShowEditModal(false)}
+        >
+          <EditModal
+            id={id}
+            title={title}
+            body={body}
+            onClose={() => setShowEditModal(false)}
+            // closeEditModal={closeEditModal}
+          />
+        </Modal>
       )}
     </div>
   )

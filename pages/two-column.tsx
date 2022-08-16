@@ -27,10 +27,10 @@ const TwoColumnPage = () => {
         </section>
         <aside>
           <h3>Aside</h3>
-          <Image src="/images/ibm.jpg" width={600} height={400} alt="IBM" />
-          <br />
-          <br />
           <Image src="/images/eniac.jpg" width={600} height={400} alt="ENIAC" />
+          <br />
+          <br />
+          <Image src="/images/ibm.jpg" width={600} height={400} alt="IBM" />
         </aside>
       </main>
     </Layout>

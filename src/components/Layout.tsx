@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = ({
   children,
 }): JSX.Element => {
   return (
-    <>
+    <div className="container">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -26,7 +26,7 @@ const Layout: FC<LayoutProps> = ({
       <Navbar />
       {children}
       <Footer />
-    </>
+    </div>
   )
 }
 

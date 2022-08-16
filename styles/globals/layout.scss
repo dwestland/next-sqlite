@@ -1,3 +1,6 @@
+// body {
+//   border: 1px solid red;
+// }
 // div {
 //   border: 1px solid black;
 // }
@@ -19,31 +22,28 @@
 
 /* Layout Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.container {
-  display: flex;
+
+body {
   height: 100vh;
   margin: auto;
   max-width: 1200px;
-  padding: 0px;
-
-  // flex-wrap: wrap;
-  // justify-content: space-around;
-
-  // & > div {
-  //   // flex-shrink: 0;
-  //   flex-grow: 1;
-  // }
 }
 
-.container > div {
-  flex: 1 0 100%;
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 /* Columns
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 section {
   padding: 0 20px;
-  width: 100%;
+  // width: 100%;
 }
 
 .two-column {
@@ -74,57 +74,83 @@ section {
 
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.btn {
+
+.primary-button {
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   background: var(--blue-070);
   border-radius: 5px;
   border: 0;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
   padding: 10px 20px;
+  text-decoration: none;
   &:hover {
-    opacity: 0.85;
+    background: var(--blue-080);
+  }
+}
+
+.secondary-button {
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  background: var(--black-080);
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  padding: 10px 20px;
+  text-decoration: none;
+  &:hover {
+    background: var(--black-100);
   }
 }
 
 .ghost-button {
   background: none;
+  border-radius: 5px;
   border: 2px solid var(--blue-060);
   color: var(--blue-070);
-  font-weight: bold;
-  &:hover {
-    background: var(--blue-020);
-  }
-}
-
-.btn-secondary {
-  background: var(--black-090);
-  border-radius: 5px;
-  border: 0;
-  color: #fff !important;
   cursor: pointer;
-  font-size: 13px;
-  font: inherit;
-  margin: 0 20px;
-  padding: 5px 15px;
+  font-weight: bold;
+  padding: 8px 18px;
+  text-decoration: none;
+  a {
+    color: var(--blue-060);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &:hover {
-    opacity: 0.85;
+    background: var(--blue-010);
+    text-decoration: none;
   }
 }
 
 .link-as-button {
+  a {
+    &:hover {
+      background: var(--blue-080);
+    }
+  }
   background: var(--blue-070);
   border-radius: 5px;
   border: 0;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  padding: 5px 20px;
-  text-decoration: none;
+  padding: 7px 17px;
   &:hover {
-    opacity: 0.85;
-    text-decoration: none;
+    background: var(--blue-080);
     color: #fff;
+    text-decoration: none;
   }
 }
 
@@ -132,4 +158,13 @@ section {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .bs {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(104, 76, 76, 0.3);
+}
+
+/* Dark Mode
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--black-090);
+    color: var(--black-010);
+  }
 }
