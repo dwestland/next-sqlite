@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { FC, ReactNode, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { FaTimes } from 'react-icons/fa'
 import styles from '@/styles/Modal.module.scss'
 
-export default function Modal({ show, onClose, children, modalTitle }) {
+interface ModalProps {
+  show: boolean
+  onClose: Function
+  children: ReactNode
+  modalTitle: string
+}
+
+const Modal: FC<ModalProps> = ({ show, onClose, children, modalTitle }) => {
   const [isBrowser, setIsBrowser] = useState(false)
 
   useEffect(() => setIsBrowser(true))
@@ -41,5 +48,7 @@ export default function Modal({ show, onClose, children, modalTitle }) {
   }
   return null
 }
+
+export default Modal
 
 // https://devrecipes.net/modal-component-with-next-js/

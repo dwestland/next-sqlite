@@ -4,11 +4,18 @@ import BlogItem from '@/components/BlogItem'
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import AddModal from '@/components/AddModal'
-import queryKeys from '@/react-query/constants'
+import queryKeys from '@/constants/queryKeys'
+import apiRootUrl from '@/constants/apiRootUrl'
 
 interface Blog {
-  blogs: {}[]
-  title
+  id: number
+  body: string
+  title: string
+  author: {
+    id: number
+    name: string
+    email: string
+  }
 }
 
 interface Blogs {
@@ -26,7 +33,7 @@ interface Blogs {
 
 const BlogsPage = () => {
   const [showAddModal, setShowAddModal] = useState<boolean>(false)
-  const url = `${process.env.NEXT_PUBLIC_API}/blogs`
+  const url = `${apiRootUrl.NEXT_PUBLIC_API}/blogs`
 
   // Lock scroll when modal visible
   useEffect(() => {
@@ -56,8 +63,9 @@ const BlogsPage = () => {
       return <h4>Error loading blogs</h4>
     }
 
-    const allBlogs = data.blogs.map((blog: Blog) => (
-      <BlogItem key={blog.title} blog={blog} />
+    const { blogs } = data
+    const allBlogs = blogs?.map((blog: Blog) => (
+      <BlogItem key={blog.id} blog={blog} />
     ))
 
     if (allBlogs.length === 0) {
@@ -92,11 +100,7 @@ const BlogsPage = () => {
           show={showAddModal}
           onClose={() => setShowAddModal(false)}
         >
-          <AddModal
-            onClose={() => setShowAddModal(false)}
-            show={showAddModal}
-            // closeEditModal={closeEditModal}
-          />
+          <AddModal onClose={() => setShowAddModal(false)} />
         </Modal>
       )}
     </Layout>
