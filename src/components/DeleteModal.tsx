@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React, { FC } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
-import queryKeys from '@/react-query/constants'
+import queryKeys from '@/constants/queryKeys'
+import apiRootUrl from '@/constants/apiRootUrl'
 import styles from '@/styles/ModalForm.module.scss'
 
 interface ModalProps {
@@ -12,7 +13,7 @@ interface ModalProps {
 
 const DeleteModal: FC<ModalProps> = ({ id, title, onClose }): JSX.Element => {
   const queryClient = useQueryClient()
-  const url = `${process.env.NEXT_PUBLIC_API}/blogs`
+  const url = `${apiRootUrl.NEXT_PUBLIC_API}/blogs`
 
   const deleteBlog = async () => {
     await fetch(url, {

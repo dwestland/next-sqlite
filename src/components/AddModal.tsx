@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import queryKeys from '@/react-query/constants'
+import queryKeys from '@/constants/queryKeys'
+import apiRootUrl from '@/constants/apiRootUrl'
 import styles from '@/styles/ModalForm.module.scss'
 
 interface ModalProps {
@@ -19,8 +20,8 @@ interface Users {
 const AddModal: FC<ModalProps> = ({ onClose }) => {
   const queryClient = useQueryClient()
   const inputReference = useRef(null)
-  const usersUrl = `${process.env.NEXT_PUBLIC_API}/users`
-  const blogsUrl = `${process.env.NEXT_PUBLIC_API}/blogs`
+  const usersUrl = `${apiRootUrl.NEXT_PUBLIC_API}/users`
+  const blogsUrl = `${apiRootUrl.NEXT_PUBLIC_API}/blogs`
 
   const [errorMessage, setErrorMessage] = useState('')
   const [values, setValues] = useState({

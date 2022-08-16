@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
 import styles from '@/styles/ModalForm.module.scss'
 import { useMutation, useQueryClient } from 'react-query'
-import queryKeys from '@/react-query/constants'
+import queryKeys from '@/constants/queryKeys'
+import apiRootUrl from '@/constants/apiRootUrl'
 
 interface ModalProps {
   id: number
@@ -18,7 +19,7 @@ const EditModal: FC<ModalProps> = ({
 }): JSX.Element => {
   const queryClient = useQueryClient()
   const inputReference = useRef(null)
-  const url = `${process.env.NEXT_PUBLIC_API}/blogs`
+  const url = `${apiRootUrl.NEXT_PUBLIC_API}/blogs`
 
   const [errorMessage, setErrorMessage] = useState('')
   const [values, setValues] = useState({

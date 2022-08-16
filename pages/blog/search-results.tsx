@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '@/components/Layout'
+import apiRootUrl from '@/constants/apiRootUrl'
 
 interface Search {
   blogs: []
@@ -15,7 +16,7 @@ interface SearchResults {
 }
 
 const searchResults = () => {
-  const url = `${process.env.NEXT_PUBLIC_API}/blog/search`
+  const url = `${apiRootUrl.NEXT_PUBLIC_API}/blog/search`
   const router = useRouter()
   const searchTerm = router.query.term
 
@@ -34,10 +35,14 @@ const searchResults = () => {
     return res.json()
   }
 
-  const { data, error, isLoading, isError } = useQuery<Search, Error>(
+  const { data, error, isLoading, isError, refetch } = useQuery<Search, Error>(
     'searchResults',
     fetchSearchResults
   )
+
+  useEffect(() => {
+    refetch()
+  }, [searchTerm])
 
   const result = () => {
     if (isLoading) {
@@ -65,7 +70,10 @@ const searchResults = () => {
     <Layout title="Search Results" description="Search results page.">
       <main>
         <section>
-          <h1>Search Results for {router.query.term}</h1>
+          <h1>
+            <span style={{ fontSize: '46px' }}>Search Results for</span>{' '}
+            {router.query.term}
+          </h1>
           {result()}
         </section>
       </main>

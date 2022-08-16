@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
+import apiRootUrl from '@/constants/apiRootUrl'
 
 interface Blog {
   blog: {
@@ -21,21 +22,18 @@ const BlogDetailPage = () => {
   console.log('%c router.query ', 'background: red; color: white', router.query)
 
   const fetchBlog = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}/blog/${+id}`)
+    const res = await fetch(`${apiRootUrl.NEXT_PUBLIC_API}/blog/${+id}`)
     return res.json()
   }
 
-  const { data, error, isLoading, isError } = useQuery<Blog, Error>(
-    'blog',
-    fetchBlog
-  )
+  const { data, error, isLoading, isError, refetch, isFetched } = useQuery<
+    Blog,
+    Error
+  >('blog', fetchBlog)
 
-  console.log('%c data ', 'background: red; color: white', data)
-  console.log('%c error ', 'background: red; color: white', error)
-  console.log('%c isLoading ', 'background: red; color: white', isLoading)
-  console.log('%c isError ', 'background: red; color: white', isError)
-
-  // const { body } = data.blog
+  useEffect(() => {
+    refetch()
+  }, [isFetched])
 
   const pageResult = () => {
     if (isLoading) {
@@ -47,27 +45,20 @@ const BlogDetailPage = () => {
       return <h4>Error loading blog detail</h4>
     }
 
-    // if (blogDetail.length === 0) {
-    //   return <h2>No Blogs</h2>
-    // }
-    // return 'boom'
+    if (data.blog) {
+      return (
+        <>
+          <h2>{data.blog.title}</h2>
+          <p>
+            Author: <i>{data.blog.author.name}</i>
+          </p>
+          <p>{data.blog.body}</p>
+        </>
+      )
+    }
 
-    return (
-      <>
-        <h2>{data.blog.title}</h2>
-        <p>
-          Author: <i>{data.blog.author.name}</i>
-        </p>
-        <p>{data.blog.body}</p>
-      </>
-    )
+    return null
   }
-
-  // console.log(
-  //   '%c data.blog.title ',
-  //   'background: red; color: white',
-  //   data.blog.title
-  // )
 
   return (
     <Layout title="Document" description="Document description">
