@@ -70,9 +70,11 @@ const searchResults = () => {
       <main>
         <section>
           <h1>
-            <span style={{ fontSize: '46px' }}>Search Results for</span>{' '}
+            <span style={{ fontSize: '46px' }}>Search Results for</span> <br />
             {router.query.term}
           </h1>
+          <hr />
+          <br />
           {result()}
         </section>
       </main>
