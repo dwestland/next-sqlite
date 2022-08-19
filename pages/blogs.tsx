@@ -20,6 +20,7 @@ interface Blog {
 
 interface Blogs {
   blogs: {
+    map: Function
     id: number
     body: string
     title: string
@@ -68,7 +69,7 @@ const BlogsPage = () => {
       <BlogItem key={blog.id} blog={blog} />
     ))
 
-    if (allBlogs.length === 0) {
+    if (allBlogs?.length === 0) {
       return <h2>No Blogs</h2>
     }
 

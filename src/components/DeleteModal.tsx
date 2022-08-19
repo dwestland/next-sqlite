@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FC } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import queryKeys from '@/constants/queryKeys'
