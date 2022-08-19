@@ -12,6 +12,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@prisma/client": "^4.2.1",
     "@types/node": "^16.11.49",
     "@types/react": "^17.0.24",
     "eslint-config-prettier": "^8.3.0",
@@ -27,7 +28,6 @@
     "typescript": "^4.4.3"
   },
   "devDependencies": {
-    "@prisma/client": "^4.2.1",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "eslint": "^7.32.0",
