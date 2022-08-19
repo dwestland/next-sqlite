@@ -53,6 +53,10 @@ const searchResults = () => {
       return <span>Error: {error?.message}</span>
     }
 
+    if (data.blogs.length === 0) {
+      return <span>No results found</span>
+    }
+
     const results = data.blogs.map((blog: SearchResults) => (
       <p key={blog.id}>
         <strong>{blog.title}</strong>
